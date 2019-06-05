@@ -50,6 +50,12 @@ def update_task(task_id):
         'is_urgent':request.form.get('is_urgent')
     })
     return redirect(url_for('get_task'))
+    
+    
+@app.route('/delete_task/<task_id>')
+def delete_task(task_id):
+    mongo.db.tasks.remove({'_id': ObjectId(task_id)})
+    return redirect(url_for('get_task'))
 
 if __name__ == "__main__":
     app.run(host = os.getenv('IP', '127.0.0.1'), 

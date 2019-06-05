@@ -6,16 +6,25 @@
         <div class="collapsible-header">
             <div class="col s3">
                 <i class="material-icons">expand_more</i>
-                <a class="waves-effect waves-light btn btn_small">Done</a>
+                <a href="{{ url_for('delete_task', task_id=task._id) }}" class="waves-effect waves-light btn btn_small">Done</a>
                 <a href="{{ url_for('edit_task', task_id=task._id) }}" class="waves-effect waves-light btn btn_small blue">Edit</a>
             </div>
             <div class="task_header col s9">
-                <strong>{{ task.task_name }}</strong>&nbsp;- {{ task.due_date }}
+                <strong>{{ task.category_name }} : {{ task.task_name }}</strong>&nbsp;- {{ task.due_date }}
             </div>
         </div>
         <div class="collapsible-body">
-            <p>{{ task.task_description }}</p>
-            <p>{{ task.category_name }} {{ task.is_urgent}}</p>
+            <div class="row">
+                
+                {% if task.is_urgent %}
+                    <div class="col s1"><span style="cursor: help;" title="Urgent!"><i class="small material-icons">hourglass_empty</i></span></div>
+                    <div class="col s11">{{ task.task_description }}</div>
+                {% else %}
+                    <div class="col s1"><span style="cursor: help;" title="Normal Importance"><i class="small material-icons">hourglass_full</i></div>
+                    <div class="col s11">{{ task.task_description }}</div>
+                {% endif %}
+
+            </div>
         </div>
     </li>
     {% endfor %}
